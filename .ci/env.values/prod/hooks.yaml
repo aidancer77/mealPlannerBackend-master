@@ -1,0 +1,14 @@
+hooks:
+  jobs:
+    flyway:
+      enabled: true
+      env:
+        PGHOST: meal-planner-postgresql
+        PGPORT: 5432
+        PGDATABASE: meal-planner
+        PGUSER: meal-planner-user
+        PGPASSWORD:
+          valueFrom:
+            secretKeyRef:
+              name: meal-planner-postgresql
+              key: password

@@ -1,0 +1,24 @@
+env: 
+  _JAVA_OPTIONS: >
+      -Duser.timezone=Europe/Moscow
+  PG_HOST: meal-planner-postgresql
+  PG_USERNAME: meal-planner-user
+  PG_DATABASE: meal-planner
+  PG_PORT: 5432
+  PG_PASSWORD:
+    valueFrom:
+      secretKeyRef:
+        name: meal-planner-postgresql
+        key: password
+
+imagePullSecrets:
+  - name: gitlab-cr
+
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 16m
+  hosts:
+    - host: "{{ .Values.CI_FQDN }}"
+      paths:
+        - "/"

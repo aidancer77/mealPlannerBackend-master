@@ -1,0 +1,19 @@
+hooks:
+  jobs:
+    flyway:
+      enabled: false
+      type: "pre-install, pre-upgrade"
+      weight: 5
+      backoffLimit: 0
+      imagePullSecrets:
+        - name: gitlab-cr
+      command: ["/bin/bash"]
+      args:
+        - "-c"
+        - |
+          flyway \
+          -url=jdbc:postgresql://$PGHOST:$PGPORT/$PGDATABASE \
+          -user=$PGUSER \
+          -password=$PGPASSWORD \
+          -locations=filesystem:/migration \
+          migrate;
