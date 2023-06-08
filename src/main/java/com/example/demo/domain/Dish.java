@@ -2,6 +2,8 @@ package com.example.demo.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "dishes")
 public class Dish {
@@ -11,8 +13,8 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
 
-    @Column(name = "dishes_categories_id")
-    private Long dishesCategoriesId;
+/*    @Column(name = "dishes_categories_id")
+    private Long dishesCategoriesId;*/
 
     @Column(name = "dishes_name")
     private String dishesName;
@@ -41,15 +43,17 @@ public class Dish {
     @Column(name = "dishes_image")
     private String dishesImage;
 
-
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name = "dishes_categories_id", nullable = false)
+    private DishCategory dishCategory;
 
     public Dish() { }
 
     public Dish(Long id, Long dishesCategoriesId, String dishesName, String duration, String complexity,
                 String energyValue, String proteins, String fats, String carbohydrates, String description,
-                String dishesImage) {
+                String dishesImage, DishCategory dishCategory) {
         Id = id;
-        this.dishesCategoriesId = dishesCategoriesId;
+//        this.dishesCategoriesId = dishesCategoriesId;
         this.dishesName = dishesName;
         this.duration = duration;
         this.complexity = complexity;
@@ -59,14 +63,15 @@ public class Dish {
         this.carbohydrates = carbohydrates;
         this.description = description;
         this.dishesImage = dishesImage;
+        this.dishCategory = dishCategory;
     }
 
     public Long getId() { return Id; }
     public void setId(Long Id) { this.Id = Id; }
 
-    public Long getDishesCategoriesId() { return dishesCategoriesId; }
+/*    public Long getDishesCategoriesId() { return dishesCategoriesId; }
     public void setDishesCategoriesId(Long dishesCategoriesId) {
-        this.dishesCategoriesId = dishesCategoriesId; }
+        this.dishesCategoriesId = dishesCategoriesId; }*/
 
     public String getDishesName() { return dishesName; }
     public void setDishesName(String dishesName) { this.dishesName = dishesName; }
@@ -94,4 +99,7 @@ public class Dish {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public DishCategory getDishCategory() { return dishCategory; }
+    public void setDishCategory(DishCategory dishCategory) { this.dishCategory = dishCategory; }
 }
