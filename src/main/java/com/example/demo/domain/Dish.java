@@ -43,7 +43,7 @@ public class Dish {
     @Column(name = "dishes_image")
     private String dishesImage;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dishes_categories_id", nullable = false)
     private DishCategory dishCategory;
 

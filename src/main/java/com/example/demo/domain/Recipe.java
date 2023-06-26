@@ -15,13 +15,15 @@ public class Recipe {
     @Column(name = "ingredients_quantity")
     private Long ingredientsQuantity;
 
-    @Column(name = "ingredients_id")
-    private Long ingredientsId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ingredients_id", nullable = false)
+    private Ingredient ingredientsId;
 
-    @Column(name = "dishes_id")
-    private Long dishesId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dishes_id", nullable = false)
+    private Dish dishesId;
 
-    public Recipe(Long id, Long ingredientsQuantity, Long ingredientsId, Long dishesId) {
+    public Recipe(Long id, Long ingredientsQuantity, Ingredient ingredientsId, Dish dishesId) {
         Id = id;
         this.ingredientsQuantity = ingredientsQuantity;
         this.ingredientsId = ingredientsId;
@@ -36,9 +38,9 @@ public class Recipe {
     public Long getIngredientsQuantity() { return ingredientsQuantity; }
     public void setIngredientsQuantity(Long ingredientsQuantity) { this.ingredientsQuantity = ingredientsQuantity; }
 
-    public Long getIngredientsId() { return ingredientsId; }
-    public void setIngredientsId(Long ingredientsId) { this.ingredientsId = ingredientsId; }
+    public Ingredient getIngredientsId() { return ingredientsId; }
+    public void setIngredientsId(Ingredient ingredientsId) { this.ingredientsId = ingredientsId; }
 
-    public Long getDishesId() { return dishesId; }
-    public void setDishesId(Long dishesId) { this.dishesId = dishesId; }
+    public Dish getDishesId() { return dishesId; }
+    public void setDishesId(Dish dishesId) { this.dishesId = dishesId; }
 }
